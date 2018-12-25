@@ -6,14 +6,14 @@ import (
 )
 
 var (
-	override = new(map[string]interface{})
+	override = make(map[string]interface{})
 )
 
 /**
 Override any vars that might be fetched in the future
 */
 func Override(key string, value interface{}) {
-	(*override)[key] = value
+	override[key] = value
 }
 
 /**
@@ -24,7 +24,7 @@ func EnvI(key string, defaultIfNull int) int {
 	var ok bool
 
 	// Check for any overridden values
-	if val, ok := (*override)[key]; ok {
+	if val, ok := override[key]; ok {
 		iVal, iOk := val.(int)
 		if iOk {
 			return iVal
@@ -52,7 +52,7 @@ func Env(key string, defaultIfNull string) string {
 	var ok bool
 
 	// Check for any overridden values
-	if val, ok := (*override)[key]; ok {
+	if val, ok := override[key]; ok {
 		iVal, iOk := val.(string)
 		if iOk {
 			return iVal
@@ -78,7 +78,7 @@ func EnvB(key string, defaultIfNull bool) bool {
 	var ok bool
 
 	// Check for any overridden values
-	if val, ok := (*override)[key]; ok {
+	if val, ok := override[key]; ok {
 		iVal, iOk := val.(bool)
 		if iOk {
 			return iVal
